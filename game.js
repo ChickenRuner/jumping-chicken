@@ -276,25 +276,48 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
-// Управление
+// Управление с клавиатуры
 document.addEventListener('keydown', function(event) {
-    if (event.code === 'Space' && !chicken.isDead && isGameStarted && !isGameOver) {
-        if (chicken.onGround) {
-            chicken.speedY = chicken.jumpPower;
-            chicken.onGround = false;
-            canDoubleJump = true;
-            safePlay(jumpSound);
-        } else if (canDoubleJump) {
-            chicken.speedY = chicken.jumpPower;
-            canDoubleJump = false;
-            safePlay(jumpSound);
-        }
+    if (event.code === 'Space') {
+        handleJump();
     }
 });
 
+// Управление кликом по canvas (для мыши)
 canvas.addEventListener('click', () => {
     if (!isGameStarted) return;
-    if (isGameOver) document.location.reload();
+    if (isGameOver) {
+        document.location.reload();
+    } else {
+        handleJump();
+    }
 });
+
+// Управление через тач (мобильные устройства)
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (!isGameStarted) return;
+    if (isGameOver) {
+        document.location.reload();
+    } else {
+        handleJump();
+    }
+}, { passive: false });
+
+// Функция прыжка и двойного прыжка
+function handleJump() {
+    if (chicken.isDead || !isGameStarted || isGameOver) return;
+
+    if (chicken.onGround) {
+        chicken.speedY = chicken.jumpPower;
+        chicken.onGround = false;
+        canDoubleJump = true;
+        safePlay(jumpSound);
+    } else if (canDoubleJump) {
+        chicken.speedY = chicken.jumpPower;
+        canDoubleJump = false;
+        safePlay(jumpSound);
+    }
+}
 
 gameLoop();
