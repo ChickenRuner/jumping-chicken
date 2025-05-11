@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Курочка Прыгун</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #gameCanvas {
+            display: block;
+            background-color: #87CEEB;
+        }
+        #startScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 800px;
+            height: 400px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            z-index: 10;
+        }
+        #startScreen button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="startScreen">
+        <button id="toggleSoundBtn">🔊 Звук: Вкл</button>
+        <button id="toggleMusicBtn">🎵 Музыка: Вкл</button>
+        <button id="startGameBtn">▶️ Начать игру</button>
+    </div>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+    <script src="game.js"></script>
+</body>
+</html>
